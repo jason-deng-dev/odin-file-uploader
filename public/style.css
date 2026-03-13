@@ -44,3 +44,57 @@ h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+
+
+
+
+
+.container{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.navContainer {
+	
+  gap: 20px;
+  background-color: black;
+ padding: 10px 20px;
+
+ display: grid;
+  grid-template-columns: 1fr auto 1fr;
+}
+
+.navContainer h3 {
+  color: white;
+}
+
+.navContainer a {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+   transition: transform 0.15s ease;
+}
+
+.navContainer a:hover{
+  color: rgb(189, 189, 189);
+  text-decoration: none;
+  transform: scale(1.1);
+}
+
+.leftNav {
+  justify-self: start;
+}
+.midNav {
+  justify-self: center;
+  display: flex;
+  gap: 20px;
+}
+
+.rightNav{
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  justify-self: right;
+}
+

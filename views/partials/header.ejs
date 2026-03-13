@@ -8,30 +8,56 @@
 
 </head>
 <body>
-  <div class="statusContainer">
-     <% if (locals.user) {%>
-    <h3>User: <%= user.username %></h3>
-    
-  <% } %>
-  </div>
+  
 
 
 <div class="navContainer">
-    <div>
-      <a href="/">Home</a>
-    </div>
-    <div>
-      <% if (!locals.user) {%>
-    <a href="/auth/sign-up">Sign up</a>
-      <a href="/auth/login">Log in</a>
-  <% } %>
+      <div class="leftNav">
+        
+      </div>
 
-   <% if (locals.user) {%>
-   <a href="/auth/logout">Log out</a>
-   <a href="/file/upload">Upload file</a>
-   <a href="/folder/create">Create folder</a>
-  <% } %>
-    </div>
+      <div  class="midNav">
+          
+        <% if (locals.user) {%>
+          <a href="/file/upload">Upload file</a>
+          <% } %>
+          <a href="/">Home</a>
+<% if (locals.user) {%>
+          <a href="/folder/create">Create folder</a>
+        <% } %>
+      </div>
+
+      <div  class="rightNav">
+        <% if (locals.user) {%>
+             <h3>User: <%= user.username %></h3>
+        <% } %>
+          
+            <% if (!locals.user) {%>
+
+          <a href="/auth/sign-up">Sign up</a>
+            <a href="/auth/login">Log in</a>
+        <% } %>
+
+        <% if (locals.user) {%>
+        <a href="/auth/logout">Log out</a>
+        <% } %>
+      </div>
+
+
+     
+
     
-</div>
+
+    
+
+
+
+    
+
+    </div>
+
+
+
+
+
 <div class="container">
