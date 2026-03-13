@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // routers
 import indexRouter from './routes/indexRouter.js';
+import authRouter from './routes/authRouter.js';
 
 // Authentication setup
 import session from 'express-session';
@@ -49,13 +50,8 @@ app.use(passport.session());
 
 
 
-
-
-
-
-
-
 app.use('/', indexRouter);
+app.use('/auth', authRouter);
 app.get("/sign-up", (req, res, send) => res.render("sign-up-form"));
 
 
