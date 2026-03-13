@@ -1,6 +1,7 @@
 import upload from "../config/multer.js";
 import { prisma } from "../lib/prisma.js";
 import { getAllFolders } from "./folderController.js";
+import path from 'path'
 
 export const fileUploadGet = async (req, res, next) => {
 	try {
@@ -57,10 +58,23 @@ export const fileDeletePost = async (req, res, next) => {
 };
 export const fileDownloadGet = async (req, res, next) => {
 	try {
+		const file = await prisma.file.findUnique({
+			where: { id: Number(req.params.file_id) }
+		})
+		const file_url = file.file_URL;
+		const file_name = file.name;
+		
+		res.download(file_url, file_name, (err) => {
+            if (err) next(err);
+        });
+
 	} catch (err) {
 		next(err);
 	}
 };
+
+
+
 export const fileEditGet = async (req, res, next) => {
 	try {
 	} catch (err) {

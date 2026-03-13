@@ -1,39 +1,40 @@
 <%- include('partials/header') %>
 
 
-    <h1>Home</h1>
+<h1>Home</h1>
 
-    <% if (user) {%>
 
-        <% folders.map((folder) => {%>
-        <div>Folder: <%= folder.name %>  </div>
-        Files: 
-        <div class="filesContainer">
-            <% folder.files.map((file) => {%>
-            
-                <div class="fileContainer">
-                    <a href="/file/info/<%= file.id %>"><%= file.name %></a>
-                    <div class="btnContainer">
-                        <form action="/file/delete/<%= file.id %>" method="POST">
-                            <button>✕</button>
-                        </form>
-                        <a href="/file/download/<%= file.id %>"><button>↓</button></a>
-                        <a href="/file/edit/<%= file.id %>"><button>✎</button></a>
-                
-                    </div>  
-                    </div>
-                    <%}) %>        
-                    
-                    
+<% if (user) {%>
+<% folders.map((folder) => {%>
+<div class="folderContainer">
+    <%= folder.name %>
+  <div class="filesContainer">
+    <% folder.files.map((file) => {%>
 
-                
-                
-        </div>
+    <div class="fileContainer">
+      <a href="/file/info/<%= file.id %>"><%= file.name %></a>
+      <div class="btnContainer">
+        <form action="/file/delete/<%= file.id %>" method="POST">
+          <button>✕</button>
+        </form>
+        <a href="/file/download/<%= file.id %>"><button>↓</button></a>
+        <a href="/file/edit/<%= file.id %>"><button>✎</button></a>
+
+      </div>
+    </div>
     <%}) %>
+  </div>
 
 
 
-     <%} %>
-    
-    
+
+</div>
+
+<%}) %>
+
+
+
+<%} %>
+
+
 <%- include('partials/footer') %>
