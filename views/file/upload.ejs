@@ -1,0 +1,10 @@
+<%- include('../partials/header') %>
+
+<h1>Upload</h1>
+<%- include("../partials/errors.ejs") %>
+<form action="/file/upload" method="post" enctype="multipart/form-data">
+  <input type="file" name="file" />
+  <button type="submit">submit</button>
+</form>
+
+<%- include('../partials/footer') %>

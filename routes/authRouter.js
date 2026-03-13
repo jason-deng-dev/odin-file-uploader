@@ -2,19 +2,16 @@ import { Router } from 'express';
 import {
 	createUserGet,
 	createUserPost,
-    loginGet, logoutGet
+    loginGet, logoutGet, loginPost
 } from '../controllers/authController.js';
-import passport from '../config/passport.js'
+
 
 const authRouter = Router();
 
 authRouter.get('/sign-up', createUserGet);
 authRouter.post('/sign-up', createUserPost);
 authRouter.get('/login', loginGet);
-authRouter.post('/login',  passport.authenticate('local', {
-  successRedirect: '/',
-  failureRedirect: '/auth/login',
-}));
+authRouter.post('/login',  loginPost);
 authRouter.get('/logout', logoutGet)
 
 export default authRouter;

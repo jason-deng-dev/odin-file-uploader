@@ -22,8 +22,8 @@ const validateSignUp = [
 		.withMessage(`Username ${emptyErr}`)
 		.custom(async (value, { req }) => {
 			const foundUser = await prisma.user.findUnique({
-				where: {username: req.body.username},
-			})
+				where: { username: req.body.username },
+			});
 			if (foundUser) {
 				throw new Error('Username taken');
 			}
@@ -72,6 +72,12 @@ export const loginGet = async (req, res, next) => {
 	}
 };
 
+export const loginPost = passport.authenticate('local',
+	 {
+		successRedirect: '/',
+		failureRedirect: '/auth/login',
+	});
+
 export const logoutGet = (req, res, next) => {
 	req.logout((err) => {
 		if (err) {
@@ -80,3 +86,6 @@ export const logoutGet = (req, res, next) => {
 		res.redirect('/');
 	});
 };
+
+
+
