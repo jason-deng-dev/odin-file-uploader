@@ -7,7 +7,7 @@ const indexRouter = Router();
 
 indexRouter.get('/', async (req, res, next) => {
     const folders = await getAllFolders(req.user.id)
-    res.render('index', {folders})
+    res.render('index', {folders, styles: 'index.css'})
 })
 
 export default indexRouter;

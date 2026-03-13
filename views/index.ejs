@@ -6,12 +6,25 @@
     <% folders.map((folder) => {%>
         <div>Folder: <%= folder.name %>  </div>
         <div>Files: 
-            
             <% folder.files.map((file) => {%>
-                <%= file.name %>
-            <%}) %>  
-        
-        
+                <div class="fileContainer">
+                    <a href=""><%= file.name %></a>
+            <%}) %>        
+            <div class="btnContainer">
+                <form action="">
+                <button>✕</button>
+            </form>
+            <form action="">
+                <button>↓</button>
+            </form>
+            <form action="">
+                <button>✎</button>
+            </form>
+            </div>  
+            
+
+                </div>
+                
         </div>
     <%}) %>
     

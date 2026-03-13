@@ -1,0 +1,42 @@
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: none;
+    color: rgb(189, 189, 189);
+}
+
+
+.fileContainer {
+	display: flex;
+	align-items: center;
+	background-color: #000000;
+	width: min-content;
+    padding: 5px;
+    aspect-ratio: 1/1;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+button {
+	width: 28px;
+	height: 28px;
+	border: 1px solid #ccc;
+	background-color: rgb(255, 255, 255);
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #dddddd;
+}
+
+button:active {
+	background-color: black;
+	color: white;
+}
+
+.btnContainer{
+    display: flex;
+}

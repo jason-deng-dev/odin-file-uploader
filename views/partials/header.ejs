@@ -2,6 +2,10 @@
 <html>
 <head>
   <link rel="stylesheet" href="/style.css">
+  <% if (locals.styles) { %>
+  <link rel="stylesheet" href="/<%- styles %>">
+<% } %>
+
 </head>
 <body>
   <div class="statusContainer">
@@ -27,10 +31,6 @@
    <a href="/file/upload">Upload file</a>
    <a href="/folder/create">Create folder</a>
   <% } %>
-  
-      
-      
-
     </div>
     
 </div>
