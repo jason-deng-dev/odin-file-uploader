@@ -12,13 +12,13 @@
                 <div class="fileContainer">
                     <a href=""><%= file.name %></a>
                     <div class="btnContainer">
-                        <form action="">
+                        <form action="/file/delete/<%= file.id %>" method="POST">
                             <button>✕</button>
                         </form>
-                        <form action="">
+                        <form  action="/file/download/<%= file.id %>" method="POST">
                             <button>↓</button>
                         </form>
-                        <form action="">
+                        <form action="/file/edit/<%= file.id %>" method="POST">
                             <button>✎</button>
                         </form>
                     </div>  

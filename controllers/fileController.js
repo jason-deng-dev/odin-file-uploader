@@ -42,3 +42,25 @@ export const getAllFiles = async (folder_id) => {
     })
     return files
 }
+
+export const fileDeletePost = async (req, res, next) => {
+	try {
+
+	} catch(err ) {
+		next(err)
+	}
+}
+export const fileDownloadPost = async (req, res, next) => {
+	try {
+
+	} catch(err ) {
+		next(err)
+	}
+}
+export const fileEditPost = async (req, res, next) => {
+	try {
+
+	} catch(err ) {
+		next(err)
+	}
+}
