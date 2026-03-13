@@ -12,7 +12,19 @@
     <% folder.files.map((file) => {%>
 
     <div class="fileContainer">
-      <a href="/file/info/<%= file.id %>"><%= file.name %></a>
+
+      <form action="/file/edit/<%= file.id %>" method="POST">
+        <input type="text" name="name" id="name">
+        <button>submit</button>
+
+
+      </form>
+
+
+      <!-- <a href="/file/info/<%= file.id %>"><%= file.name %></a> -->
+
+
+
       <div class="btnContainer">
         <form action="/file/delete/<%= file.id %>" method="POST">
           <button>✕</button>

@@ -1,6 +1,7 @@
 ### TODOLIST:
-- if username already exists in db error
-- failure login add error
+- clicking on file name expands file to spread to show info
+- clicking edit brings up form on file to change name
+- add delete/download/edit button for folders
 
 
 ## DB structure
