@@ -5,25 +5,29 @@
 
     <% folders.map((folder) => {%>
         <div>Folder: <%= folder.name %>  </div>
-        <div>Files: 
+        Files: 
+        <div class="filesContainer">
             <% folder.files.map((file) => {%>
+            
                 <div class="fileContainer">
                     <a href=""><%= file.name %></a>
-            <%}) %>        
-            <div class="btnContainer">
-                <form action="">
-                <button>✕</button>
-            </form>
-            <form action="">
-                <button>↓</button>
-            </form>
-            <form action="">
-                <button>✎</button>
-            </form>
-            </div>  
-            
+                    <div class="btnContainer">
+                        <form action="">
+                            <button>✕</button>
+                        </form>
+                        <form action="">
+                            <button>↓</button>
+                        </form>
+                        <form action="">
+                            <button>✎</button>
+                        </form>
+                    </div>  
+                    </div>
+                    <%}) %>        
+                    
+                    
 
-                </div>
+                
                 
         </div>
     <%}) %>
