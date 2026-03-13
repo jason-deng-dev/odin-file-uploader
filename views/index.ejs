@@ -1,5 +1,11 @@
 <%- include('partials/header') %>
 
+
     <h1>Home</h1>
+
+    <% folders.map((folder) => {%>
+        <div> <%= folder.name %>  </div>
+        <div> <%= folder.files %>  </div>
+    <%}) %>
     
 <%- include('partials/footer') %>

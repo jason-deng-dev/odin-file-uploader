@@ -24,3 +24,13 @@ export const folderCreatePost = async (req, res, next) => {
 		next(err);
 	}
 };
+
+export const getAllFolders = async (user_id) => {
+	const folders = await prisma.folder.findMany({
+		where: {
+			ownerId: user_id,
+		},
+		include: { files: true },
+	});
+	return folders;
+};

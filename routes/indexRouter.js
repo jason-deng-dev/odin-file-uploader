@@ -1,10 +1,13 @@
 import { Router } from 'express';
 import * as indexController from '../controllers/indexController.js';
+import { getAllFiles } from '../controllers/fileController.js';
+import { getAllFolders } from '../controllers/folderController.js';
 
 const indexRouter = Router();
 
-indexRouter.get('/', (req, res, send) => {
-    res.render('index')
+indexRouter.get('/', async (req, res, next) => {
+    const folders = await getAllFolders(req.user.id)
+    res.render('index', {folders})
 })
 
 export default indexRouter;

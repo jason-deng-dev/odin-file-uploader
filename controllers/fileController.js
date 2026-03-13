@@ -19,3 +19,12 @@ export const fileUploadPost = [
 		}
 	},
 ];
+
+export const getAllFiles = async (folder_id) => {
+    const files = await prisma.file.findMany({
+        where: {
+            folder_id
+        }
+    })
+    return files
+}

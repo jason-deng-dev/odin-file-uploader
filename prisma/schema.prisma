@@ -35,7 +35,6 @@ model Folder {
   files      File[]
   links      Link[]
   @@unique([ownerId, name])
-
 }
 
 model Link {
