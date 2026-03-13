@@ -1,8 +1,11 @@
 import upload from '../config/multer.js';
+import { prisma } from '../lib/prisma.js';
+import { getAllFolders } from './folderController.js';
 
 export const fileUploadGet = async (req, res, next) => {
 	try {
-		res.render('file/uploadFile.ejs');
+		const folders = await getAllFolders();
+		res.render('file/uploadFile.ejs', {folders});
 	} catch (err) {
 		next(err);
 	}
@@ -12,8 +15,19 @@ export const fileUploadPost = [
 	upload.single('file'),
 	async (req, res, next) => {
 		try {
-			const fileName = req.file.originalname;
-			const fileSize = req.file.size;
+			const folder_id = Number(req.body.folder_id);
+			const name = req.file.originalname;
+			const size = req.file.size;
+			const file_URL = req.file.path;
+			await prisma.file.create({
+				data: {
+					file_URL,
+					size,
+					name,
+					folder_id
+				}
+			})
+			res.redirect('/')
 		} catch (err) {
 			next(err);
 		}

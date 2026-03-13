@@ -4,8 +4,15 @@
     <h1>Home</h1>
 
     <% folders.map((folder) => {%>
-        <div> <%= folder.name %>  </div>
-        <div> <%= folder.files %>  </div>
+        <div>Folder: <%= folder.name %>  </div>
+        <div>Files: 
+            
+            <% folder.files.map((file) => {%>
+                <%= file.name %>
+            <%}) %>  
+        
+        
+        </div>
     <%}) %>
     
 <%- include('partials/footer') %>

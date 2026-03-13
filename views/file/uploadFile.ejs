@@ -3,6 +3,16 @@
 <h1>Upload</h1>
 <%- include("../partials/errors.ejs") %>
 <form action="/file/upload" method="post" enctype="multipart/form-data">
+  <label>Select folder: 
+    <select name="folder_id">
+      <% folders.forEach(folder => { %>
+        <option value="<%= folder.id %>"><%= folder.name %></option>
+      <% }) %>
+    </select>
+
+</label>
+  
+
   <input type="file" name="file" />
   <button type="submit">submit</button>
 </form>
