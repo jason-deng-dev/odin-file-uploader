@@ -10,17 +10,14 @@
             <% folder.files.map((file) => {%>
             
                 <div class="fileContainer">
-                    <a href=""><%= file.name %></a>
+                    <a href="/file/info/<%= file.id %>"><%= file.name %></a>
                     <div class="btnContainer">
                         <form action="/file/delete/<%= file.id %>" method="POST">
                             <button>✕</button>
                         </form>
-                        <form  action="/file/download/<%= file.id %>" method="POST">
-                            <button>↓</button>
-                        </form>
-                        <form action="/file/edit/<%= file.id %>" method="POST">
-                            <button>✎</button>
-                        </form>
+                        <a href="/file/download/<%= file.id %>"><button>↓</button></a>
+                        <a href="/file/edit/<%= file.id %>"><button>✎</button></a>
+                
                     </div>  
                     </div>
                     <%}) %>        
