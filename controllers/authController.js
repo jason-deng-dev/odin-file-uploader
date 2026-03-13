@@ -1,5 +1,6 @@
 import { prisma } from '../lib/prisma.js';
 import passport from '../config/passport.js'
+import bcrypt from 'bcryptjs';
 
 export const createUserGet = async (req, res, next) => {
 	try {
@@ -11,10 +12,11 @@ export const createUserGet = async (req, res, next) => {
 
 export const createUserPost = async (req, res, next) => {
 	try {
+		const hashedPassword = await bcrypt.hash(req.body.password, 10);
 		await prisma.user.create({
 			data: {
 				username: req.body.username,
-				password: req.body.password,
+				password: hashedPassword,
 			},
 		});
 		res.redirect('/');
@@ -32,3 +34,11 @@ export const loginGet = async (req, res, next) => {
 	}
 };
 
+export const logoutGet = (req, res, next) => {
+	req.logout((err) => {
+		if (err) {
+			return next(err)
+		}
+		res.redirect('/');
+	})
+}

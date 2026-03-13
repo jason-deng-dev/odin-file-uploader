@@ -4,15 +4,31 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div>
+  <div class="statusContainer">
      <% if (locals.user) {%>
-    <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/log-out">LOG OUT</a>
+    <h3>User: <%= user.username %></h3>
+    
   <% } %>
   </div>
-<div>
-    <a href="/">Home</a>
+
+
+<div class="navContainer">
+    <div>
+      <a href="/">Home</a>
+    </div>
+    <div>
+      <% if (!locals.user) {%>
     <a href="/auth/sign-up">Sign up</a>
-    <a href="/auth/login">Log in</a>
+      <a href="/auth/login">Log in</a>
+  <% } %>
+
+   <% if (locals.user) {%>
+   <a href="/auth/logout">Log out</a>
+  <% } %>
+      
+      
+
+    </div>
+    
 </div>
 <div class="container">
