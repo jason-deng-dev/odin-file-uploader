@@ -13,7 +13,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",  
+  "type": "module",
   "bugs": {
     "url": "https://github.com/JasGdev/express-ejs-template/issues"
   },
@@ -32,7 +32,7 @@
     "pg": "^8.20.0"
   },
   "devDependencies": {
+    "prettier-plugin-prisma": "^5.0.0",
     "prisma": "^7.5.0"
   }
-  
 }
