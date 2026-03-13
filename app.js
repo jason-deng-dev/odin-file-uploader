@@ -25,6 +25,9 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
+import passport from 'passport'
+import {Strategy as LocalStrategy} from 'passport-local'
+
 
 app.use(
   expressSession({
@@ -44,6 +47,23 @@ app.use(
     )
   })
 );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
