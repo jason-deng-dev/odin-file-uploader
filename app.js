@@ -1,22 +1,52 @@
 import express from 'express';
 import path from 'node:path';
-import indexRouter from './routes/indexRouter.js';
-
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+import "dotenv/config";
 
 const app = express();
 
-// setup for static assets
 const assetsPath = path.join(__dirname, 'public');
 app.use(express.static(assetsPath));
-// setup for EJS
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-// body parser for form POST
 app.use(express.urlencoded({ extended: true }));
+
+// routers
+import indexRouter from './routes/indexRouter.js';
+
+// Authentication setup
+import expressSession from 'express-session'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '../../generated/prisma/client';
+import { PrismaSessionStore } from '@quixo3/prisma-session-store';
+const connectionString = `${process.env.DATABASE_URL}`;
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
+
+app.use(
+  expressSession({
+    cookie: {
+     maxAge: 7 * 24 * 60 * 60 * 1000 // ms
+    },
+    secret: 'secretkey',
+    resave: true,
+    saveUninitialized: true,
+    store: new PrismaSessionStore(
+      prisma,
+      {
+        checkPeriod: 2 * 60 * 1000,  //ms
+        dbRecordIdIsSessionId: true,
+        dbRecordIdFunction: undefined,
+      }
+    )
+  })
+);
+
+
+
 
 app.use('/', indexRouter);
 
