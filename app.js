@@ -47,7 +47,7 @@ app.use(
 import passport from './config/passport.js'
 app.use(passport.session());
 
-// will have access to the currentUser variable in all of your views
+// will have access to the user variable in all of your views
 app.use((req, res, next) => {
   res.locals.user = req.user;
   next();

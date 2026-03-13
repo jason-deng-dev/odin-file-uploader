@@ -3,7 +3,9 @@
 
     <h1>Home</h1>
 
-    <% folders.map((folder) => {%>
+    <% if (user) {%>
+
+        <% folders.map((folder) => {%>
         <div>Folder: <%= folder.name %>  </div>
         Files: 
         <div class="filesContainer">
@@ -28,5 +30,10 @@
                 
         </div>
     <%}) %>
+
+
+
+     <%} %>
+    
     
 <%- include('partials/footer') %>

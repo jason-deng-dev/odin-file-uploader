@@ -6,8 +6,15 @@ import { getAllFolders } from '../controllers/folderController.js';
 const indexRouter = Router();
 
 indexRouter.get('/', async (req, res, next) => {
-    const folders = await getAllFolders(req.user.id)
-    res.render('index', {folders, styles: 'index.css'})
+    
+    if (req.user) {
+        const folders = await getAllFolders(req.user.id)
+        res.render('index', {folders, styles: 'index.css'})
+    }　else {
+        res.render('index', {styles: 'index.css'})
+    }
+    
+    
 })
 
 export default indexRouter;

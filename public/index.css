@@ -1,19 +1,6 @@
-.fileContainer a {
-	text-decoration: none;
-	color: white;
-	flex: 1;
-	display: flex;
-	align-items: center;
-}
-
 .filesContainer{
     display: flex;
     gap: 5px;
-}
-
-a:hover {
-	text-decoration: none;
-	color: rgb(189, 189, 189);
 }
 
 .fileContainer {
@@ -27,6 +14,23 @@ a:hover {
 
 	flex-direction: column;
 }
+
+
+.fileContainer a {
+	text-decoration: none;
+	color: white;
+	flex: 1;
+	display: flex;
+	align-items: center;
+}
+
+
+.fileContainer a:hover {
+	text-decoration: none;
+	color: rgb(189, 189, 189);
+}
+
+
 
 button {
 	width: 28px;
