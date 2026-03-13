@@ -52,7 +52,7 @@ app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-app.get("/sign-up", (req, res, send) => res.render("sign-up-form"));
+
 
 
 
