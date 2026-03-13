@@ -2,7 +2,7 @@ import upload from '../config/multer.js';
 
 export const fileUploadGet = async (req, res, next) => {
 	try {
-		res.render('file/upload.ejs');
+		res.render('file/uploadFile.ejs');
 	} catch (err) {
 		next(err);
 	}
