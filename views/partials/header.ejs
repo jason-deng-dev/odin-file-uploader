@@ -4,8 +4,15 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+  <div>
+     <% if (locals.user) {%>
+    <h1>WELCOME BACK <%= user.username %></h1>
+    <a href="/log-out">LOG OUT</a>
+  <% } %>
+  </div>
 <div>
     <a href="/">Home</a>
     <a href="/auth/sign-up">Sign up</a>
+    <a href="/auth/login">Log in</a>
 </div>
 <div class="container">

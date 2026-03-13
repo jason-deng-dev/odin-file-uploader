@@ -26,8 +26,6 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
-import passport from 'passport';
-import { Strategy as LocalStrategy } from 'passport-local';
 app.use(
 	session({
 		cookie: {
@@ -43,27 +41,20 @@ app.use(
 		}),
 	}),
 );
+
+import passport from './config/passport.js'
 app.use(passport.session());
 
-
-
+// will have access to the currentUser variable in all of your views
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.use((err, req, res, next) => {
 	console.error(err);

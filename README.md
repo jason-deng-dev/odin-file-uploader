@@ -1,3 +1,8 @@
+### TODOLIST:
+- if username already exists in db error
+- failure login add error
+
+
 ## DB structure
 
 Users: id/username/password
