@@ -28,12 +28,14 @@ model User {
 
 model Folder {
   id         Int      @id @default(autoincrement())
-  name       String
+  name       String   
   created_at DateTime @default(now())
   owner      User     @relation(fields: [ownerId], references: [id])
   ownerId    Int
   files      File[]
   links      Link[]
+  @@unique([ownerId, name])
+
 }
 
 model Link {
@@ -52,4 +54,5 @@ model File {
   upload_time DateTime @default(now())
   folder      Folder   @relation(fields: [folder_id], references: [id])
   folder_id    Int
+  @@unique([folder_id, name])
 }

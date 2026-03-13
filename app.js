@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 import indexRouter from './routes/indexRouter.js';
 import authRouter from './routes/authRouter.js';
 import fileRouter from './routes/fileRouter.js';
+import folderRouter from './routes/folderRouter.js';
 
 // Authentication setup
 import session from 'express-session';
@@ -57,6 +58,7 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/file', fileRouter);
+app.use('/folder', folderRouter)
 
 
 app.use((err, req, res, next) => {

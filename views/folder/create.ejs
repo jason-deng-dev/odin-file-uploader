@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+
+    <h1>Create Folder</h1>
+    <form action="/folder/create" method="POST">
+	<label for="name">Folder name</label>
+	<input
+	autocomplete="off"
+		id="name"
+		name="name"
+		type="text"
+	/>
+	<button type="submit">Create</button>
+</form>
+    
+<%- include('../partials/footer') %>
