@@ -57,7 +57,6 @@ export const fileDownloadGet = async (req, res, next) => {
 		next(err)
 	}
 }
-
 export const fileEditGet = async (req, res, next) => {
 	try {
 
@@ -65,7 +64,6 @@ export const fileEditGet = async (req, res, next) => {
 		next(err)
 	}
 }
-
 export const fileEditPost = async (req, res, next) => {
 	try {
 
@@ -73,7 +71,6 @@ export const fileEditPost = async (req, res, next) => {
 		next(err)
 	}
 }
-
 export const fileInfoGet = async (req, res, next) => {
 	try {
 
