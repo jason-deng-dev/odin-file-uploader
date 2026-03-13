@@ -19,7 +19,7 @@ export const folderCreatePost = async (req, res, next) => {
 				ownerId: req.user.id,
 			},
 		});
-		res.redirect('/folder/create');
+		res.redirect('/');
 	} catch (err) {
 		next(err);
 	}
