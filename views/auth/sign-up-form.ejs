@@ -4,13 +4,14 @@
 <form action="/auth/sign-up" method="POST">
 	<label for="username">Username</label>
 	<input
+	autocomplete="off"
 		id="username"
 		name="username"
 		placeholder="username"
 		type="text"
 	/>
 	<label for="password">Password</label>
-	<input id="password" name="password" type="password" />
+	<input autocomplete="off" id="password" name="password" type="password" />
 	<button type="submit">Sign Up</button>
 </form>
 
