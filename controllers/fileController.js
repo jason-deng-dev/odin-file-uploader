@@ -50,14 +50,31 @@ export const fileDeletePost = async (req, res, next) => {
 		next(err)
 	}
 }
-export const fileDownloadPost = async (req, res, next) => {
+export const fileDownloadGet = async (req, res, next) => {
 	try {
 
 	} catch(err ) {
 		next(err)
 	}
 }
+
+export const fileEditGet = async (req, res, next) => {
+	try {
+
+	} catch(err ) {
+		next(err)
+	}
+}
+
 export const fileEditPost = async (req, res, next) => {
+	try {
+
+	} catch(err ) {
+		next(err)
+	}
+}
+
+export const fileInfoGet = async (req, res, next) => {
 	try {
 
 	} catch(err ) {
