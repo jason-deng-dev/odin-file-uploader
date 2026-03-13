@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-import "dotenv/config";
+import 'dotenv/config';
 
 const app = express();
 
@@ -18,44 +18,31 @@ app.use(express.urlencoded({ extended: true }));
 import indexRouter from './routes/indexRouter.js';
 
 // Authentication setup
-import expressSession from 'express-session'
-import { PrismaPg } from '@prisma/adapter-pg'
-import { PrismaClient } from '../../generated/prisma/client';
+import session from 'express-session';
+import { PrismaPg } from '@prisma/adapter-pg';
+import { PrismaClient } from './generated/prisma/client.js';
 import { PrismaSessionStore } from '@quixo3/prisma-session-store';
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 const prisma = new PrismaClient({ adapter });
-import passport from 'passport'
-import {Strategy as LocalStrategy} from 'passport-local'
-
-
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 app.use(
-  expressSession({
-    cookie: {
-     maxAge: 7 * 24 * 60 * 60 * 1000 // ms
-    },
-    secret: 'secretkey',
-    resave: true,
-    saveUninitialized: true,
-    store: new PrismaSessionStore(
-      prisma,
-      {
-        checkPeriod: 2 * 60 * 1000,  //ms
-        dbRecordIdIsSessionId: true,
-        dbRecordIdFunction: undefined,
-      }
-    )
-  })
+	session({
+		cookie: {
+			maxAge: 7 * 24 * 60 * 60 * 1000, // ms
+		},
+		secret: 'secretkey',
+		resave: true,
+		saveUninitialized: true,
+		store: new PrismaSessionStore(prisma, {
+			checkPeriod: 2 * 60 * 1000, //ms
+			dbRecordIdIsSessionId: true,
+			dbRecordIdFunction: undefined,
+		}),
+	}),
 );
-
-
-
-
-
-
-
-
-
+app.use(passport.session());
 
 
 
@@ -69,6 +56,18 @@ app.use(
 
 
 app.use('/', indexRouter);
+app.get("/sign-up", (req, res, send) => res.render("sign-up-form"));
+
+
+
+
+
+
+
+
+
+
+
 
 app.use((err, req, res, next) => {
 	console.error(err);
