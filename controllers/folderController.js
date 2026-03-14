@@ -40,7 +40,14 @@ export const getAllFolders = async (user_id) => {
 
 export const folderDeletePost = async (req, res, next) => {
 	try {
-		const folderId = req.params.id;
+		const folderId = Number(req.params.id);
+		const folder = await prism.file.findUnique({
+			where: {id: folderId}
+		})
+		if (folder.ownerId !== req.user.id) {
+			return res.status(403).send('Forbidden');
+		}
+
 		// delete all files from folder
 		const filesToDelete = await prisma.file.findMany({
 			where: {folder_id: Number(folderId)}
@@ -65,7 +72,14 @@ export const folderDeletePost = async (req, res, next) => {
 
 export const folderEditPost = async (req, res, next) => {
 	try {
-		const folderId = req.params.id;
+		const folderId = Number(req.params.id);
+		const folder = await prism.file.findUnique({
+			where: {id: folderId}
+		})
+		if (folder.ownerId !== req.user.id) {
+			return res.status(403).send('Forbidden');
+		}
+
 
 		await prisma.folder.update({
 			where: { id: Number(folderId) },
