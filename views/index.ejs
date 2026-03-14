@@ -7,39 +7,40 @@
 <% folders.map((folder) => {%>
 <div class="folderContainer">
 
-    
-      <h3><%= folder.name %></h3>
+
+  <h3><%= folder.name %></h3>
 
 
-    <div class="folderBtnContainer">
-        <form action="/folder/delete/<%= folder.id %>" method="POST">
-          <button class="btn">✕</button>
-        </form>
-        <a class="btn" href="/folder/download/<%= folder.id %>">↓</a>
-        <a class="btn" href="/folder/edit/<%= folder.id %>">✎</a>
+  <div class="folderBtnContainer">
+    <form action="/folder/delete/<%= folder.id %>" method="POST">
+      <button class="btn">✕</button>
+    </form>
+    <a class="btn" href="/folder/download/<%= folder.id %>">↓</a>
+    <a class="btn" href="/folder/edit/<%= folder.id %>">✎</a>
 
-      </div>
-
-  
-    
+  </div>
 
 
-    
+
+
+
   <div class="filesContainer">
     <% folder.files.map((file) => {%>
 
     <div class="fileContainer">
-
-      <!-- if editFileId === file.id display editForm else name -->
-
-  
-
+      <% if (fileId == file.id) {  %>
       <form class="editForm" action="/file/edit/<%= file.id %>" method="POST">
         <input type="text" name="name" id="name" value=<%= file.name %> onfocus="this.select()">
         <button>submit</button>
       </form>
 
-      <!-- <a class="fileName" href="/file/info/<%= file.id %>"><%= file.name %></a> -->
+
+      <% } else { %>
+      <a class="fileName" href="/file/info/<%= file.id %>"><%= file.name %></a>
+
+      <%} %>
+
+
 
 
 
@@ -48,7 +49,7 @@
           <button class="btn">✕</button>
         </form>
         <a class="btn" href="/file/download/<%= file.id %>">↓</a>
-        <a class="btn" href="/edit/<%= file.id %>">✎</a>
+        <a class="btn" href="/editFile/<%= file.id %>">✎</a>
 
       </div>
 
