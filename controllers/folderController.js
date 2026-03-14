@@ -3,7 +3,6 @@ import { body, validationResult } from "express-validator";
 import supabase from "../config/supabase.js";
 import "dotenv/config";
 
-
 export const folderCreateGet = async (req, res, next) => {
 	try {
 		res.render("folder/createFolder.ejs");
@@ -12,9 +11,48 @@ export const folderCreateGet = async (req, res, next) => {
 	}
 };
 
-const validateCreateFolder = [body("")];
+const validateCreateFolder = [
+	body("name")
+		.notEmpty()
+		.withMessage("File name is required")
+		.custom(async (value, {req}) => {
+			const folderFound =
+				null !==
+				(await prisma.folder.findFirst({
+					where: { name: value, ownerId: req.user.id},
+				}));
+			if (folderFound) {
+				throw new Error("File name taken");
+			}
+			return true;
+		}),
+];
 
-export const folderCreatePost = async (req, res, next) => {
+export const folderCreatePost = [
+	validateCreateFolder,
+	async (req, res, next) => {
+		const errors = validationResult(req);
+		if (!errors.isEmpty()) {
+			return res.status(400).render("folder/createFolder.ejs", {
+				title: "Create Folder",
+				errors: errors.array(),
+			});
+		}
+		try {
+			await prisma.folder.create({
+				data: {
+					name: req.body.name,
+					ownerId: req.user.id,
+				},
+			});
+			res.redirect("/");
+		} catch (err) {
+			next(err);
+		}
+	},
+];
+
+async (req, res, next) => {
 	try {
 		await prisma.folder.create({
 			data: {
@@ -41,24 +79,29 @@ export const getAllFolders = async (user_id) => {
 export const folderDeletePost = async (req, res, next) => {
 	try {
 		const folderId = Number(req.params.id);
-		const folder = await prism.file.findUnique({
-			where: {id: folderId}
-		})
+		const folder = await prisma.folder.findUnique({
+			where: { id: folderId },
+		});
+
+
+
 		if (folder.ownerId !== req.user.id) {
-			return res.status(403).send('Forbidden');
+			return res.status(403).send("Forbidden");
 		}
 
 		// delete all files from folder
 		const filesToDelete = await prisma.file.findMany({
-			where: {folder_id: Number(folderId)}
-		})
-		
+			where: { folder_id: Number(folderId) },
+		});
+
 		await Promise.all(
-			filesToDelete.map(file => {
+			filesToDelete.map((file) => {
 				const file_url = `uploads/${file.id}`;
-				return supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url]);
-			})	
-		)
+				return supabase.storage
+					.from(process.env.SUPABASE_BUCKET)
+					.remove([file_url]);
+			}),
+		);
 
 		await prisma.folder.delete({
 			where: { id: Number(folderId) },
@@ -74,12 +117,11 @@ export const folderEditPost = async (req, res, next) => {
 	try {
 		const folderId = Number(req.params.id);
 		const folder = await prism.file.findUnique({
-			where: {id: folderId}
-		})
+			where: { id: folderId },
+		});
 		if (folder.ownerId !== req.user.id) {
-			return res.status(403).send('Forbidden');
+			return res.status(403).send("Forbidden");
 		}
-
 
 		await prisma.folder.update({
 			where: { id: Number(folderId) },
