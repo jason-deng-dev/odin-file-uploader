@@ -21,30 +21,37 @@ export const fileUploadPost = [
 			const name = req.file.originalname;
 			const size = req.file.size;
 
-			// pass buffer directly to supabase
-			const { data, error } = await supabase.storage
-				.from(process.env.SUPABASE_BUCKET)
-				.upload(`uploads/${name}`, req.file.buffer);
-
-			if (error) throw error;
-
-			// get the public url
-			const {
-				data: { publicUrl },
-			} = supabase.storage
-				.from(process.env.SUPABASE_BUCKET)
-				.getPublicUrl(`uploads/${name}`);
-
 			// store file information in prisma
-			await prisma.file.create({
+			const newFile = await prisma.file.create({
 				data: {
-					file_URL: publicUrl,
+					file_URL: "",
 					size,
 					name,
 					folder_id,
 				},
 			});
+
+			const file_URL = `uploads/${newFile.id}`;
+
+			// pass buffer directly to supabase
+			const { data, error } = await supabase.storage
+				.from(process.env.SUPABASE_BUCKET)
+				.upload(`uploads/${newFile.id}`, req.file.buffer);
+
+			if (error) {
+				prisma.file.delete({
+					where: { id: newFile.id },
+				});
+				throw error;
+			}
+
+			await prisma.file.update({
+				where: { id: newFile.id },
+				data: { file_URL },
+			});
+
 			res.redirect("/");
+			
 		} catch (err) {
 			next(err);
 		}
@@ -56,8 +63,7 @@ export const fileDownloadGet = async (req, res, next) => {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
 		});
-		const file_url = file.file_URL.split('/').slice(-2).join('/');
-
+		const file_url = file.file_URL.split("/").slice(-2).join("/");
 
 		const file_name = file.name;
 
@@ -74,9 +80,9 @@ export const fileDownloadGet = async (req, res, next) => {
 
 		// Buffer.from(): wraps it in a Node.js Buffer so Express can send it
 		res.send(Buffer.from(buffer));
-		} catch (err) {
-			next(err);
-		}
+	} catch (err) {
+		next(err);
+	}
 };
 
 export const fileDeletePost = async (req, res, next) => {
@@ -84,9 +90,9 @@ export const fileDeletePost = async (req, res, next) => {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
 		});
-		const file_url = file.file_URL.split('/').slice(-2).join('/');
-		console.log(file_url)
-		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url])
+		const file_url = file.file_URL.split("/").slice(-2).join("/");
+		console.log(file_url);
+		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url]);
 		await prisma.file.delete({
 			where: {
 				id: Number(req.params.file_id),
@@ -106,8 +112,6 @@ export const getAllFiles = async (folder_id) => {
 	});
 	return files;
 };
-
-
 
 export const fileEditPost = async (req, res, next) => {
 	try {
