@@ -8,7 +8,6 @@ indexRouter.get('/', indexGet)
 
 indexRouter.get('/editFile/:file_id', indexEditFileGet)
 indexRouter.get('/fileInfo/:file_id', indexFileInfoGet)
-
 indexRouter.get('/editFolder/:folder_id', indexEditFolderGet)
 
 export default indexRouter;

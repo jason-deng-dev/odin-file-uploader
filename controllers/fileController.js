@@ -38,7 +38,7 @@ export const fileUploadPost = [
 			// store file information in prisma
 			await prisma.file.create({
 				data: {
-					file_URL: publicUrl,
+					file_URL: filePath,
 					size,
 					name,
 					folder_id,
@@ -56,7 +56,9 @@ export const fileDownloadGet = async (req, res, next) => {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
 		});
-		const file_url = file.file_URL;
+		const file_url = file.file_URL.split('/').slice(-2).join('/');
+
+
 		const file_name = file.name;
 
 		// fetches the file and gives you back a Blob
