@@ -38,6 +38,8 @@ export const fileUploadPost = [
 				.from(process.env.SUPABASE_BUCKET)
 				.upload(`uploads/${newFile.id}`, req.file.buffer);
 
+			
+
 			if (error) {
 				prisma.file.delete({
 					where: { id: newFile.id },
@@ -74,7 +76,6 @@ export const fileDownloadGet = async (req, res, next) => {
 		if (error) {
 			throw error;
 		}
-
 		// converts that Blob into raw binary data
 		const buffer = await fileData.arrayBuffer();
 
@@ -93,8 +94,7 @@ export const fileDeletePost = async (req, res, next) => {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
 		});
-		const file_url = file.file_URL.split("/").slice(-2).join("/");
-		console.log(file_url);
+		const file_url = `uploads/${file.id}`;
 		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url]);
 		await prisma.file.delete({
 			where: {
