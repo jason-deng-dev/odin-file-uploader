@@ -4,6 +4,7 @@ import { getAllFolders } from "./folderController.js";
 import "dotenv/config";
 import supabase from "../config/supabase.js";
 
+
 export const fileUploadGet = async (req, res, next) => {
 	try {
 		const folders = await getAllFolders();

@@ -14,9 +14,9 @@ const fileRouter = Router();
 
 fileRouter.get('/upload', ensureLoggedIn, fileUploadGet);
 fileRouter.post('/upload', ensureLoggedIn, fileUploadPost);
-fileRouter.post('/delete/:file_id', fileDeletePost);
-fileRouter.post('/edit/:file_id', fileEditPost);
-fileRouter.get('/info/:file_id', fileInfoGet);
+fileRouter.post('/delete/:file_id',ensureLoggedIn,  fileDeletePost);
+fileRouter.post('/edit/:file_id',ensureLoggedIn,  fileEditPost);
+fileRouter.get('/info/:file_id',ensureLoggedIn,  fileInfoGet);
 
 
 fileRouter.get('/download/:file_id', fileDownloadGet);
