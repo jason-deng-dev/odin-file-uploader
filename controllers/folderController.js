@@ -82,9 +82,6 @@ export const folderDeletePost = async (req, res, next) => {
 		const folder = await prisma.folder.findUnique({
 			where: { id: folderId },
 		});
-
-
-
 		if (folder.ownerId !== req.user.id) {
 			return res.status(403).send("Forbidden");
 		}
