@@ -15,7 +15,6 @@
     <form action="/folder/delete/<%= folder.id %>" method="POST">
       <button class="btn">✕</button>
     </form>
-    <a class="btn" href="/folder/download/<%= folder.id %>">↓</a>
     <a class="btn" href="/folder/edit/<%= folder.id %>">✎</a>
 
   </div>
@@ -28,15 +27,19 @@
     <% folder.files.map((file) => {%>
 
     <div class="fileContainer">
-      <% if (fileId == file.id) {  %>
+      <% if (findFileId == file.id) {  %>
       <form class="editForm" action="/file/edit/<%= file.id %>" method="POST">
-        <input type="text" name="name" id="name" value=<%= file.name %> >
+        <input type="text" name="name" id="name" value=<%= file.name %>>
         <button>submit</button>
       </form>
 
 
       <% } else { %>
-        <a class="fileName" href="/file/info/<%= file.id %>"><%= file.name %></a>
+      <a class="fileName" href="/fileInfo/<%= file.id %>"><%= file.name %></a>
+      <% if (findFileId == file.id) {  %>
+        
+
+      <%} %>
 
       <%} %>
 
