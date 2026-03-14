@@ -51,7 +51,6 @@ export const fileUploadPost = [
 			});
 
 			res.redirect("/");
-			
 		} catch (err) {
 			next(err);
 		}
@@ -63,7 +62,7 @@ export const fileDownloadGet = async (req, res, next) => {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
 		});
-		const file_url = file.file_URL.split("/").slice(-2).join("/");
+		const file_url = `uploads/${file.id}`;
 
 		const file_name = file.name;
 
@@ -71,6 +70,10 @@ export const fileDownloadGet = async (req, res, next) => {
 		const { data: fileData, error } = await supabase.storage
 			.from(process.env.SUPABASE_BUCKET)
 			.download(file_url);
+
+		if (error) {
+			throw error;
+		}
 
 		// converts that Blob into raw binary data
 		const buffer = await fileData.arrayBuffer();
