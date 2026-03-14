@@ -10,6 +10,8 @@
 
     
       <h3><%= folder.name %></h3>
+
+
     <div class="folderBtnContainer">
         <form action="/folder/delete/<%= folder.id %>" method="POST">
           <button class="btn">✕</button>
@@ -29,13 +31,14 @@
 
     <div class="fileContainer">
 
+      <!-- if editFileId === file.id display editForm else name -->
+
+      <% if (editFileId =) %>
+
       <form class="editForm" action="/file/edit/<%= file.id %>" method="POST">
         <input type="text" name="name" id="name" value=<%= file.name %> onfocus="this.select()">
         <button>submit</button>
-
-
       </form>
-
 
       <!-- <a class="fileName" href="/file/info/<%= file.id %>"><%= file.name %></a> -->
 
@@ -46,7 +49,7 @@
           <button class="btn">✕</button>
         </form>
         <a class="btn" href="/file/download/<%= file.id %>">↓</a>
-        <a class="btn" href="/file/edit/<%= file.id %>">✎</a>
+        <a class="btn" href="/edit/<%= file.id %>">✎</a>
 
       </div>
     </div>
