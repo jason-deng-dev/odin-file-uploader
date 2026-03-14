@@ -17,6 +17,7 @@ body {
 	display: flex;
 	position: relative;
 	gap: 20px;
+	width: 800px;
 }
 
 .filesContainer {
@@ -49,7 +50,7 @@ body {
 	color: rgb(210, 210, 210);
 }
 
-.btn{
+.btn {
 	width: 28px;
 	height: 28px;
 	border: none;
@@ -62,7 +63,7 @@ body {
 	align-items: center;
 }
 
-.btn:hover{
+.btn:hover {
 	background-color: #dddddd;
 }
 
@@ -81,31 +82,46 @@ body {
 }
 
 .editForm input {
-	width: 400px;
+	width: 100%;
 }
 
-
-
+.editForm {
+	width: 100%;
+	display: flex;
+	padding-right: 10px;
+}
 
 .folderBtnContainer {
-  position: absolute;
-  top: 5px;
-  right: -70px;
-  display: flex;
-  gap: 2px;
+	position: absolute;
+	top: 5px;
+	right: -70px;
+	display: flex;
+	gap: 2px;
 }
 
-.folderBtnContainer  .btn{
-  background-color: #000000;
-  color: white;
+.folderBtnContainer .btn {
+	background-color: #000000;
+	color: white;
 }
 
-.folderBtnContainer  .btn:hover{
-  background-color: #515151;
+.folderBtnContainer .btn:hover {
+	background-color: #515151;
 }
 
-.fileInfoContainer{
+.fileInfoContainer {
 	color: white;
 	display: flex;
 	flex-direction: column;
+}
+
+.folderName {
+	width: 20%;
+}
+
+.folderName form {
+	display: flex;
+}
+
+.folderName input {
+	width: 90%;
 }

@@ -7,13 +7,23 @@
 <% folders.map((folder) => {%>
 <div class="folderContainer">
 
+  <div class="folderName">
+    <% if (editFolderId == folder.id) {%>
+      <form action="/folder/edit/<%= folder.id %>" method="POST">
+        <input type="text" value=<%= folder.name %>>
+        <button>↵</button>
+      </form>
 
-  <h3><%= folder.name %></h3>
-  <form action="/folder/edit/<%= folder.id %>" method="POST">
-    <input type="text" value=<%= folder.name %>>
-    <button>submit</button>
-  </form>
+    <%} else {%>
+      <h3><%= folder.name %></h3>
+    <%}  %>
 
+
+  </div>
+  
+
+   
+  
 
 
 
@@ -24,7 +34,14 @@
     <form action="/folder/delete/<%= folder.id %>" method="POST">
       <button class="btn">✕</button>
     </form>
-    <a class="btn" href="/editFolder/<%= folder.id %>">✎</a>
+
+
+    <% if (editFolderId != folder.id) {%>
+      <a class="btn" href="/editFolder/<%= folder.id %>">✎</a>
+    <%} else {%>
+      <a class="btn" href="/">✎</a>
+    <%} %>
+    
 
   </div>
 
@@ -39,7 +56,7 @@
       <% if (findFileId == file.id) {  %>
       <form class="editForm" action="/file/edit/<%= file.id %>" method="POST">
         <input type="text" name="name" id="name" value=<%= file.name %>>
-        <button>submit</button>
+        <button>↵</button>
       </form>
 
 

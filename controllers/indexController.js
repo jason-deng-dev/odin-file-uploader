@@ -52,7 +52,6 @@ export const indexFileInfoGet = async (req, res, next) => {
 
 export const indexEditFolderGet = async (req, res, next) => {
 	try {
-        
 		await renderIndex(req, res, { editFolderId: req.params.folder_id });
 	} catch (err) {
 		next(err);
