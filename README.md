@@ -1,6 +1,7 @@
 ### TODOLIST:
 - clicking on file name expands file to spread to show info
 - clicking edit brings up form on file to change name
+    - idea right now is clicking edit button redirects ('/file_id/folder_id'), which we pass to ejs to load the edit form for that file 
 - add delete/download/edit button for folders
 
 

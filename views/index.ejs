@@ -21,16 +21,16 @@
       </form>
 
 
-      <!-- <a href="/file/info/<%= file.id %>"><%= file.name %></a> -->
+      <!-- <a class="fileName" href="/file/info/<%= file.id %>"><%= file.name %></a> -->
 
 
 
       <div class="btnContainer">
         <form action="/file/delete/<%= file.id %>" method="POST">
-          <button>✕</button>
+          <button class="btn">✕</button>
         </form>
-        <a href="/file/download/<%= file.id %>"><button>↓</button></a>
-        <a href="/file/edit/<%= file.id %>"><button>✎</button></a>
+        <a class="btn" href="/file/download/<%= file.id %>">↓</a>
+        <a class="btn" href="/file/edit/<%= file.id %>">✎</a>
 
       </div>
     </div>
