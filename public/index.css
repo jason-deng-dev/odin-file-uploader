@@ -103,3 +103,9 @@ body {
 .folderBtnContainer  .btn:hover{
   background-color: #515151;
 }
+
+.fileInfoContainer{
+	color: white;
+	display: flex;
+	flex-direction: column;
+}
