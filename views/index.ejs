@@ -10,7 +10,7 @@
   <div class="folderName">
     <% if (editFolderId == folder.id) {%>
       <form action="/folder/edit/<%= folder.id %>" method="POST">
-        <input type="text" value=<%= folder.name %>>
+        <input type="text" value="<%= folder.name %>">
         <button>↵</button>
       </form>
 
@@ -20,15 +20,6 @@
 
 
   </div>
-  
-
-   
-  
-
-
-
-
-
 
   <div class="folderBtnContainer">
     <form action="/folder/delete/<%= folder.id %>" method="POST">
@@ -55,7 +46,7 @@
     <div class="fileContainer">
       <% if (findFileId == file.id) {  %>
       <form class="editForm" action="/file/edit/<%= file.id %>" method="POST">
-        <input type="text" name="name" id="name" value=<%= file.name %>>
+        <input type="text" name="name" id="name" value="<%= file.name %>">
         <button>↵</button>
       </form>
 

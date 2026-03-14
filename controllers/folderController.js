@@ -1,15 +1,15 @@
-import { prisma } from '../lib/prisma.js';
-import { body, validationResult } from 'express-validator';
+import { prisma } from "../lib/prisma.js";
+import { body, validationResult } from "express-validator";
 
 export const folderCreateGet = async (req, res, next) => {
 	try {
-		res.render('folder/createFolder.ejs');
+		res.render("folder/createFolder.ejs");
 	} catch (err) {
 		next(err);
 	}
 };
 
-const validateCreateFolder = [body('')];
+const validateCreateFolder = [body("")];
 
 export const folderCreatePost = async (req, res, next) => {
 	try {
@@ -19,7 +19,7 @@ export const folderCreatePost = async (req, res, next) => {
 				ownerId: req.user.id,
 			},
 		});
-		res.redirect('/');
+		res.redirect("/");
 	} catch (err) {
 		next(err);
 	}
@@ -33,4 +33,16 @@ export const getAllFolders = async (user_id) => {
 		include: { files: true },
 	});
 	return folders;
+};
+
+export const folderDeletePost = async (req, res, next) => {
+	try {
+		const folderId = req.params.id;
+	} catch (err) {}
+};
+
+export const folderEditPost = async (req, res, next) => {
+	try {
+		const folderId = req.params.id;
+	} catch (err) {}
 };
