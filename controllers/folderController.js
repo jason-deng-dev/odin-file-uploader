@@ -17,7 +17,7 @@ const validateCreateFolder = [
 		.withMessage("File name is required")
 		.custom(async (value, {req}) => {
 			const folderFound =
-				null !==
+				null !=
 				(await prisma.folder.findFirst({
 					where: { name: value, ownerId: req.user.id},
 				}));
@@ -82,7 +82,7 @@ export const folderDeletePost = async (req, res, next) => {
 		const folder = await prisma.folder.findUnique({
 			where: { id: folderId },
 		});
-		if (folder.ownerId !== req.user.id) {
+		if (folder.ownerId != req.user.id) {
 			return res.status(403).send("Forbidden");
 		}
 
@@ -113,10 +113,10 @@ export const folderDeletePost = async (req, res, next) => {
 export const folderEditPost = async (req, res, next) => {
 	try {
 		const folderId = Number(req.params.id);
-		const folder = await prism.file.findUnique({
+		const folder = await prisma.file.findUnique({
 			where: { id: folderId },
 		});
-		if (folder.ownerId !== req.user.id) {
+		if (folder.ownerId != req.user.id) {
 			return res.status(403).send("Forbidden");
 		}
 
