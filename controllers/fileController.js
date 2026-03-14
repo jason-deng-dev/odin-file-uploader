@@ -75,6 +75,14 @@ export const fileDownloadGet = async (req, res, next) => {
 
 export const fileEditPost = async (req, res, next) => {
 	try {
+		console.log(req.params.file_id)
+		console.log(req.body.name)
+		await prisma.file.update({
+			where: { id: Number(req.params.file_id)},
+			data: {name: req.body.name}
+		})
+		res.redirect('/')
+
 	} catch (err) {
 		next(err);
 	}
