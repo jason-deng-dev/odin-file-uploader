@@ -38,7 +38,7 @@ export const fileUploadPost = [
 			// store file information in prisma
 			await prisma.file.create({
 				data: {
-					file_URL: filePath,
+					file_URL: publicUrl,
 					size,
 					name,
 					folder_id,
@@ -85,7 +85,7 @@ export const fileDeletePost = async (req, res, next) => {
 			where: { id: Number(req.params.file_id) },
 		});
 		const file_url = file.file_URL.split('/').slice(-2).join('/');
-
+		console.log(file_url)
 		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url])
 		await prisma.file.delete({
 			where: {
@@ -97,13 +97,6 @@ export const fileDeletePost = async (req, res, next) => {
 		next(err);
 	}
 };
-
-
-
-
-
-
-
 
 export const getAllFiles = async (folder_id) => {
 	const files = await prisma.file.findMany({

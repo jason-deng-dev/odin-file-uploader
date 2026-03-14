@@ -1,5 +1,6 @@
 ### TODOLIST:
 - Make sure when delete folder/file delete the files from the cloud storage
+- make sure when changing file name update file on cloud storage?
 
 
 ## DB structure
