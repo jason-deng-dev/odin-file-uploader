@@ -139,10 +139,6 @@ export const fileEditPost = async (req, res, next) => {
 		if (file.folder.ownderId !== req.user.id) {
 			return res.status(403).send('Forbidden');
 		}
-
-
-
-
 		await prisma.file.update({
 			where: { id: Number(req.params.file_id) },
 			data: { name: req.body.name },
