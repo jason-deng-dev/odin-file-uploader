@@ -51,7 +51,7 @@ model File {
   name        String
   size        Int
   upload_time DateTime @default(now())
-  folder      Folder   @relation(fields: [folder_id], references: [id])
+  folder      Folder   @relation(fields: [folder_id], references: [id], onDelete: Cascade)
   folder_id    Int
   @@unique([folder_id, name])
 }
