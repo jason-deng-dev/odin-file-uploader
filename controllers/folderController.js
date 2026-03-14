@@ -113,7 +113,7 @@ export const folderDeletePost = async (req, res, next) => {
 export const folderEditPost = async (req, res, next) => {
 	try {
 		const folderId = Number(req.params.id);
-		const folder = await prisma.file.findUnique({
+		const folder = await prisma.folder.findUnique({
 			where: { id: folderId },
 		});
 		if (folder.ownerId != req.user.id) {
