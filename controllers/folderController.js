@@ -38,11 +38,27 @@ export const getAllFolders = async (user_id) => {
 export const folderDeletePost = async (req, res, next) => {
 	try {
 		const folderId = req.params.id;
-	} catch (err) {}
+		await prisma.folder.delete({
+			where: { id: Number(folderId) },
+		});
+
+		res.redirect("/");
+	} catch (err) {
+		next(err);
+	}
 };
 
 export const folderEditPost = async (req, res, next) => {
 	try {
 		const folderId = req.params.id;
-	} catch (err) {}
+
+		await prisma.folder.update({
+			where: { id: Number(folderId) },
+			data: { name: req.body.name },
+		});
+
+		res.redirect("/");
+	} catch (err) {
+		next(err);
+	}
 };

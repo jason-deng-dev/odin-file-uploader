@@ -10,7 +10,7 @@
   <div class="folderName">
     <% if (editFolderId == folder.id) {%>
       <form action="/folder/edit/<%= folder.id %>" method="POST">
-        <input type="text" value="<%= folder.name %>">
+        <input type="text" name="name"  value="<%= folder.name %>">
         <button>↵</button>
       </form>
 
