@@ -79,17 +79,14 @@ export const fileDownloadGet = async (req, res, next) => {
 		}
 };
 
-export const getAllFiles = async (folder_id) => {
-	const files = await prisma.file.findMany({
-		where: {
-			folder_id,
-		},
-	});
-	return files;
-};
-
 export const fileDeletePost = async (req, res, next) => {
 	try {
+		const file = await prisma.file.findUnique({
+			where: { id: Number(req.params.file_id) },
+		});
+		const file_url = file.file_URL.split('/').slice(-2).join('/');
+
+		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url])
 		await prisma.file.delete({
 			where: {
 				id: Number(req.params.file_id),
@@ -101,10 +98,26 @@ export const fileDeletePost = async (req, res, next) => {
 	}
 };
 
+
+
+
+
+
+
+
+export const getAllFiles = async (folder_id) => {
+	const files = await prisma.file.findMany({
+		where: {
+			folder_id,
+		},
+	});
+	return files;
+};
+
+
+
 export const fileEditPost = async (req, res, next) => {
 	try {
-		console.log(req.params.file_id);
-		console.log(req.body.name);
 		await prisma.file.update({
 			where: { id: Number(req.params.file_id) },
 			data: { name: req.body.name },
