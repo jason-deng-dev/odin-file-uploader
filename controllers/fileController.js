@@ -3,7 +3,7 @@ import { prisma } from "../lib/prisma.js";
 import { getAllFolders } from "./folderController.js";
 import "dotenv/config";
 import supabase from "../config/supabase.js";
-
+import { check, validationResult } from "express-validator";
 
 export const fileUploadGet = async (req, res, next) => {
 	try {
@@ -14,9 +14,46 @@ export const fileUploadGet = async (req, res, next) => {
 	}
 };
 
+const validateUploadFile = [
+	check("file")
+		.custom((value, { req }) => {
+			if (!req.file) throw new Error("File is required");
+			if (req.file.size > 10 * 1024 * 1024)
+				throw new Error("File too large (max 10MB)");
+			const notAllowed = [
+				"application/x-msdownload", // .exe
+			];
+			if (notAllowed.includes(req.file.mimetype))
+				throw new Error(".exe file type not allowed");
+			return true;
+		})
+		.custom(async (value, { req }) => {
+			const folderId = Number(req.body.folder_id);
+			const fileFound =
+				null !=
+				(await prisma.file.findFirst({
+					where: { name: value, folder_id: folderId },
+				}));
+			if (fileFound) {
+				throw new Error("File name taken");
+			}
+			return true;
+		}),
+];
+
 export const fileUploadPost = [
 	upload.single("file"),
+	validateUploadFile,
 	async (req, res, next) => {
+		const errors = validationResult(req);
+		const folders = await getAllFolders();
+		if (!errors.isEmpty()) {
+			return res.status(400).render("file/uploadFile.ejs", {
+				folders,
+				title: "upload file",
+				errors: errors.array(),
+			});
+		}
 		try {
 			const folder_id = Number(req.body.folder_id);
 			const name = req.file.originalname;
@@ -38,8 +75,6 @@ export const fileUploadPost = [
 			const { data, error } = await supabase.storage
 				.from(process.env.SUPABASE_BUCKET)
 				.upload(`uploads/${newFile.id}`, req.file.buffer);
-
-			
 
 			if (error) {
 				prisma.file.delete({
@@ -64,11 +99,11 @@ export const fileDownloadGet = async (req, res, next) => {
 	try {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
-			include: { folder: true }
+			include: { folder: true },
 		});
 
 		if (file.folder.ownerId != req.user.id) {
-			return res.status(403).send('Forbidden');
+			return res.status(403).send("Forbidden");
 		}
 
 		const file_url = `uploads/${file.id}`;
@@ -99,13 +134,12 @@ export const fileDeletePost = async (req, res, next) => {
 	try {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
-			include: { folder: true }
+			include: { folder: true },
 		});
 
 		if (file.folder.ownerId != req.user.id) {
-			return res.status(403).send('Forbidden');
+			return res.status(403).send("Forbidden");
 		}
-
 
 		const file_url = `uploads/${file.id}`;
 		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url]);
@@ -133,11 +167,11 @@ export const fileEditPost = async (req, res, next) => {
 	try {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
-			include: { folder: true }
+			include: { folder: true },
 		});
 
 		if (file.folder.ownerId != req.user.id) {
-			return res.status(403).send('Forbidden');
+			return res.status(403).send("Forbidden");
 		}
 		await prisma.file.update({
 			where: { id: Number(req.params.file_id) },
@@ -148,5 +182,3 @@ export const fileEditPost = async (req, res, next) => {
 		next(err);
 	}
 };
-
-

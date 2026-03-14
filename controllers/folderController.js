@@ -14,7 +14,7 @@ export const folderCreateGet = async (req, res, next) => {
 const validateCreateFolder = [
 	body("name")
 		.notEmpty()
-		.withMessage("File name is required")
+		.withMessage("Folder name is required")
 		.custom(async (value, {req}) => {
 			const folderFound =
 				null !=
@@ -22,7 +22,7 @@ const validateCreateFolder = [
 					where: { name: value, ownerId: req.user.id},
 				}));
 			if (folderFound) {
-				throw new Error("File name taken");
+				throw new Error("Folder name taken");
 			}
 			return true;
 		}),
