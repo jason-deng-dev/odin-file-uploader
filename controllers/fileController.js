@@ -14,7 +14,6 @@ export const fileUploadGet = async (req, res, next) => {
 	}
 };
 
-
 export const fileUploadPost = [
 	upload.single("file"),
 	async (req, res, next) => {
@@ -65,9 +64,14 @@ export const fileDownloadGet = async (req, res, next) => {
 	try {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
+			include: { folder: true }
 		});
-		const file_url = `uploads/${file.id}`;
 
+		if (file.folder.ownderId !== req.user.id) {
+			return res.status(403).send('Forbidden');
+		}
+
+		const file_url = `uploads/${file.id}`;
 		const file_name = file.name;
 
 		// fetches the file and gives you back a Blob
@@ -95,7 +99,14 @@ export const fileDeletePost = async (req, res, next) => {
 	try {
 		const file = await prisma.file.findUnique({
 			where: { id: Number(req.params.file_id) },
+			include: { folder: true }
 		});
+
+		if (file.folder.ownderId !== req.user.id) {
+			return res.status(403).send('Forbidden');
+		}
+
+
 		const file_url = `uploads/${file.id}`;
 		await supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url]);
 		await prisma.file.delete({
@@ -120,6 +131,18 @@ export const getAllFiles = async (folder_id) => {
 
 export const fileEditPost = async (req, res, next) => {
 	try {
+		const file = await prisma.file.findUnique({
+			where: { id: Number(req.params.file_id) },
+			include: { folder: true }
+		});
+
+		if (file.folder.ownderId !== req.user.id) {
+			return res.status(403).send('Forbidden');
+		}
+
+
+
+
 		await prisma.file.update({
 			where: { id: Number(req.params.file_id) },
 			data: { name: req.body.name },
@@ -131,9 +154,3 @@ export const fileEditPost = async (req, res, next) => {
 };
 
 
-export const fileInfoGet = async (req, res, next) => {
-	try {
-	} catch (err) {
-		next(err);
-	}
-};
