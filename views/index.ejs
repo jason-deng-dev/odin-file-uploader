@@ -35,20 +35,24 @@
 
 
       <% } else { %>
-        <div>
-          <a class="fileName" href="/fileInfo/<%= file.id %>"><%= file.name %></a>
-      
-      <div class="fileInfoContainer">
-
+      <div>
         <% if (fileInfoId == file.id) {  %>
-        <div> Size: <%= file.size %> B</div>
-        <div> <%= file.upload_time.toLocaleString() %></div>
+        <a class="fileName" href="/"><%- file.name %></a>
+        <% } else { %>
+        <a class="fileName" href="/fileInfo/<%= file.id %>"><%= file.name %></a>
+        <% } %>
 
-      <%} %>
-      </div>
+        <div class="fileInfoContainer">
+
+          <% if (fileInfoId == file.id) {  %>
+          <div> Size: <%= file.size %> B</div>
+          <div> <%= file.upload_time.toLocaleString() %></div>
+
+          <%} %>
         </div>
-      
-      
+      </div>
+
+
 
       <%} %>
 
