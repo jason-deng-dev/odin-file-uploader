@@ -48,7 +48,7 @@ export const folderDeletePost = async (req, res, next) => {
 		
 		await Promise.all(
 			filesToDelete.map(file => {
-				const file_url = file.file_URL.split('/').slice(-2).join('/');
+				const file_url = `uploads/${file.id}`;
 				return supabase.storage.from(process.env.SUPABASE_BUCKET).remove([file_url]);
 			})	
 		)

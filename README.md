@@ -1,6 +1,6 @@
 ### TODOLIST:
-- Make sure when delete folder/file delete the files from the cloud storage
-- make sure when changing file name update file on cloud storage?
+- validate no duplicate folder name
+- validate no duplicate file name, file size limit, no .exe files
 
 
 ## DB structure

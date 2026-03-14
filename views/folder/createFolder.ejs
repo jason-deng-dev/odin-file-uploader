@@ -1,6 +1,7 @@
 <%- include('../partials/header') %>
 
     <h1>Create Folder</h1>
+	<%- include("../partials/errors.ejs") %>
     <form action="/folder/create" method="POST">
 	<label for="name">Folder name</label>
 	<input

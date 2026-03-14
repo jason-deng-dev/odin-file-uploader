@@ -13,6 +13,7 @@ export const fileUploadGet = async (req, res, next) => {
 	}
 };
 
+
 export const fileUploadPost = [
 	upload.single("file"),
 	async (req, res, next) => {
@@ -127,6 +128,8 @@ export const fileEditPost = async (req, res, next) => {
 		next(err);
 	}
 };
+
+
 export const fileInfoGet = async (req, res, next) => {
 	try {
 	} catch (err) {
