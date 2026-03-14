@@ -2,6 +2,7 @@
 - validate no duplicate folder name
 - validate no duplicate file name, file size limit, no .exe files
 - validate that when file/folder action is taken, the user_id is in ownerId
+- fix forbidden error on file actions
 
 
 ## DB structure

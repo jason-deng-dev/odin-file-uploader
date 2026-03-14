@@ -67,7 +67,7 @@ export const fileDownloadGet = async (req, res, next) => {
 			include: { folder: true }
 		});
 
-		if (file.folder.ownderId !== req.user.id) {
+		if (file.folder.ownerId != req.user.id) {
 			return res.status(403).send('Forbidden');
 		}
 
@@ -102,7 +102,7 @@ export const fileDeletePost = async (req, res, next) => {
 			include: { folder: true }
 		});
 
-		if (file.folder.ownderId !== req.user.id) {
+		if (file.folder.ownerId != req.user.id) {
 			return res.status(403).send('Forbidden');
 		}
 
@@ -136,7 +136,7 @@ export const fileEditPost = async (req, res, next) => {
 			include: { folder: true }
 		});
 
-		if (file.folder.ownderId !== req.user.id) {
+		if (file.folder.ownerId != req.user.id) {
 			return res.status(403).send('Forbidden');
 		}
 		await prisma.file.update({
