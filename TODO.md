@@ -21,5 +21,6 @@ npx prisma studio --config ./prisma.config.js --port 5555
 ```
 
 ## For Supabase cloud storage, setup in env
-SUPABASE_KEY
 SUPABASE_URL
+SUPABASE_BUCKET
+SUPABASE_SERVICE_ROLE_KEY
