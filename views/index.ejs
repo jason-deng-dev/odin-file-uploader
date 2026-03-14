@@ -7,14 +7,30 @@
 <% if (user) {%>
 <% folders.map((folder) => {%>
 <div class="folderContainer">
-    <%= folder.name %>
+
+    
+      <h3><%= folder.name %></h3>
+    <div class="folderBtnContainer">
+        <form action="/folder/delete/<%= folder.id %>" method="POST">
+          <button class="btn">✕</button>
+        </form>
+        <a class="btn" href="/folder/download/<%= folder.id %>">↓</a>
+        <a class="btn" href="/folder/edit/<%= folder.id %>">✎</a>
+
+      </div>
+
+  
+    
+
+
+    
   <div class="filesContainer">
     <% folder.files.map((file) => {%>
 
     <div class="fileContainer">
 
-      <form action="/file/edit/<%= file.id %>" method="POST">
-        <input type="text" name="name" id="name">
+      <form class="editForm" action="/file/edit/<%= file.id %>" method="POST">
+        <input type="text" name="name" id="name" value=<%= file.name %> onfocus="this.select()">
         <button>submit</button>
 
 
@@ -25,7 +41,7 @@
 
 
 
-      <div class="btnContainer">
+      <div class="fileBtnContainer">
         <form action="/file/delete/<%= file.id %>" method="POST">
           <button class="btn">✕</button>
         </form>
