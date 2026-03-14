@@ -1,7 +1,15 @@
 import upload from "../config/multer.js";
 import { prisma } from "../lib/prisma.js";
 import { getAllFolders } from "./folderController.js";
-import path from 'path'
+
+import 'dotenv/config';
+const supabaseURL = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_KEY
+
+
+
+
+
 
 export const fileUploadGet = async (req, res, next) => {
 	try {
