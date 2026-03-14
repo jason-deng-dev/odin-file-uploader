@@ -1,5 +1,4 @@
 ### TODOLIST:
-- validate no duplicate file name, file size limit, no .exe files
 
 
 
